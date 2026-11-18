@@ -40,12 +40,12 @@
   .promo-ticker-item{white-space:normal;padding:.5rem 0}
 }
 @media (max-width:520px){
-  .promo-popup-open .wrap{width:min(85vw,600px);margin:auto;transform:scale(.7);transform-origin:center center}
+  .promo-popup-open .wrap{width:min(70vw,420px);margin:auto;transform:none}
   .promo{padding-block:var(--s4)}
   .promo-ticker-label{font-size:.7rem;padding:.5rem .6rem}
   .promo-ticker-item{font-size:.85rem}
   .promo-popup-open{padding:.75rem}
-  .promo-popup-open .promo-frame{max-height:calc(100vh - 1.5rem);padding:.75rem}
+  .promo-popup-open .promo-frame{width:100%;max-height:calc(100vh - 1.5rem);padding:.5rem}
   .promo-popup-open .promo-frame img{width:100%;height:auto;max-height:45vh;object-fit:contain}
   .promo-countdown{gap:.35rem;flex-wrap:wrap}
   .promo-countdown-title{font-size:.95rem}
