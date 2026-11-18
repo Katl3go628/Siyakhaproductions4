@@ -40,7 +40,7 @@
   .promo-ticker-item{white-space:normal;padding:.5rem 0}
 }
 @media (max-width:520px){
-  .promo-popup-open .wrap{transform:scale(.9);transform-origin:center center}
+  .promo-popup-open .wrap{transform:scale(.8);transform-origin:center center}
   .promo{padding-block:var(--s4)}
   .promo-ticker-label{font-size:.7rem;padding:.5rem .6rem}
   .promo-ticker-item{font-size:.85rem}
