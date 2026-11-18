@@ -43,16 +43,16 @@
   .promo{padding-block:var(--s4)}
   .promo-ticker-label{font-size:.7rem;padding:.5rem .6rem}
   .promo-ticker-item{font-size:.85rem}
-  .promo-popup-open{padding:.5rem}
-  .promo-popup-open .wrap{width:100%;max-width:340px}
-  .promo-popup-open .promo-frame{width:100%;max-height:calc(100dvh - 1rem);padding:.65rem}
-  .promo-popup-open .promo-frame img{max-height:26vh}
-  .promo-close{align-self:center;width:2.25rem;height:2.25rem;margin:0 auto .5rem;padding:0;border-radius:50%;font-size:0;line-height:1}
-  .promo-close::before{content:"×";font-size:1.65rem;font-weight:500}
+  .promo-popup-open{padding:.4rem}
+  .promo-popup-open .wrap{width:100%;max-width:290px}
+  .promo-popup-open .promo-frame{align-items:center;width:100%;max-height:calc(100dvh - .8rem);padding:.5rem}
+  .promo-popup-open .promo-frame img{display:block;align-self:center;width:auto;max-width:100%;max-height:22vh;height:auto;margin-inline:auto;object-fit:contain;object-position:center}
+  .promo-close{align-self:center;width:2.1rem;height:2.1rem;margin:0 auto .45rem;padding:0;border-radius:50%;font-size:0;line-height:1}
+  .promo-close::before{content:"×";font-size:1.55rem;font-weight:500}
   .promo-close:hover{background:#000;color:#fff}
-  .promo-countdown{gap:.35rem;flex-wrap:wrap}
-  .promo-countdown-title{font-size:.95rem}
-  .promo-countdown-unit{min-width:3.5rem;padding:.4rem}
-  .promo-countdown-value{font-size:1.1rem}
+  .promo-countdown{gap:.3rem;flex-wrap:wrap}
+  .promo-countdown-title{font-size:.9rem}
+  .promo-countdown-unit{min-width:3.2rem;padding:.35rem}
+  .promo-countdown-value{font-size:1rem}
   .promo-inquire{width:100%}
 }
