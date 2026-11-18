@@ -6,11 +6,11 @@
 .promo-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
 /* Opening promotion overlay; closing it leaves the original in-page promotion visible. */
-.promo-popup-open{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;overflow-y:auto;overflow-x:hidden;padding:1rem;background:rgba(0,0,0,.78)}
-.promo-popup-open .wrap{width:100%;max-width:640px;margin:auto}
-.promo-popup-open .promo-frame{position:relative;display:flex;flex-direction:column;width:100%;max-height:calc(100dvh - 2rem);overflow-y:auto;overflow-x:hidden;padding:.85rem;background:#fff;box-shadow:0 12px 48px rgba(0,0,0,.4)}
-.promo-popup-open .promo-frame img{width:100%;max-height:32vh;object-fit:contain}
-.promo-close{position:sticky;top:0;z-index:2;align-self:flex-end;flex:none;display:block;margin:0 0 .5rem auto;padding:.4rem .75rem;border:2px solid #000;background:#fff;color:#000;font:inherit;font-weight:700;cursor:pointer}
+.promo-popup-open{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;overflow-y:auto;padding:1.25rem;background:rgba(0,0,0,.78)}
+.promo-popup-open .wrap{width:min(100%,760px);margin:auto}
+.promo-popup-open .promo-frame{position:relative;width:min(100%,740px);max-height:calc(100vh - 2.5rem);overflow-y:auto;padding:1rem;background:#fff;box-shadow:0 12px 48px rgba(0,0,0,.4)}
+.promo-popup-open .promo-frame img{max-height:38vh;object-fit:contain}
+.promo-close{display:block;margin:0 0 .65rem auto;padding:.45rem .8rem;border:2px solid #000;background:#fff;color:#000;font:inherit;font-weight:700;cursor:pointer}
 .promo-close:hover{background:#000;color:#fff}
 .promo-countdown{display:flex;align-items:center;justify-content:center;gap:.7rem;margin:1rem 0;text-align:center}
 .promo-countdown-title{flex-basis:100%;margin:0;font-weight:800}
@@ -40,19 +40,16 @@
   .promo-ticker-item{white-space:normal;padding:.5rem 0}
 }
 @media (max-width:520px){
+  .promo-popup-open .wrap{transform:scale(.9);transform-origin:center center}
   .promo{padding-block:var(--s4)}
   .promo-ticker-label{font-size:.7rem;padding:.5rem .6rem}
   .promo-ticker-item{font-size:.85rem}
-  .promo-popup-open{padding:.4rem}
-  .promo-popup-open .wrap{width:100%;max-width:290px}
-  .promo-popup-open .promo-frame{align-items:center;width:100%;max-height:calc(100dvh - .8rem);padding:.5rem}
-  .promo-popup-open .promo-frame img{display:block;align-self:center;width:auto;max-width:100%;max-height:22vh;height:auto;margin-inline:auto;object-fit:contain;object-position:center}
-  .promo-close{align-self:center;width:2.1rem;height:2.1rem;margin:0 auto .45rem;padding:0;border-radius:50%;font-size:0;line-height:1}
-  .promo-close::before{content:"×";font-size:1.55rem;font-weight:500}
-  .promo-close:hover{background:#000;color:#fff}
-  .promo-countdown{gap:.3rem;flex-wrap:wrap}
-  .promo-countdown-title{font-size:.9rem}
-  .promo-countdown-unit{min-width:3.2rem;padding:.35rem}
-  .promo-countdown-value{font-size:1rem}
+  .promo-popup-open{padding:.75rem}
+  .promo-popup-open .promo-frame{max-height:calc(100vh - 1.5rem);padding:.75rem}
+  .promo-popup-open .promo-frame img{max-height:35vh}
+  .promo-countdown{gap:.35rem;flex-wrap:wrap}
+  .promo-countdown-title{font-size:.95rem}
+  .promo-countdown-unit{min-width:3.5rem;padding:.4rem}
+  .promo-countdown-value{font-size:1.1rem}
   .promo-inquire{width:100%}
 }
