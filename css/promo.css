@@ -1,0 +1,54 @@
+/* Running specials promotion: isolated styles. Delete this file with js/promo.js to remove the feature. */
+.promo[hidden]{display:none}
+.promo{padding-block:var(--s5);background:#fff}
+.promo-frame{width:min(100%,800px);margin-inline:auto}
+.promo-frame img{display:block;width:100%;height:auto;border:1px solid var(--line)}
+.promo-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* Opening promotion overlay; closing it leaves the original in-page promotion visible. */
+.promo-popup-open{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;overflow-y:auto;padding:1.25rem;background:rgba(0,0,0,.78)}
+.promo-popup-open .wrap{width:min(100%,760px);margin:auto}
+.promo-popup-open .promo-frame{position:relative;width:min(100%,740px);max-height:calc(100vh - 2.5rem);overflow-y:auto;padding:1rem;background:#fff;box-shadow:0 12px 48px rgba(0,0,0,.4)}
+.promo-popup-open .promo-frame img{max-height:38vh;object-fit:contain}
+.promo-close{display:block;margin:0 0 .65rem auto;padding:.45rem .8rem;border:2px solid #000;background:#fff;color:#000;font:inherit;font-weight:700;cursor:pointer}
+.promo-close:hover{background:#000;color:#fff}
+.promo-countdown{display:flex;align-items:center;justify-content:center;gap:.7rem;margin:1rem 0;text-align:center}
+.promo-countdown-title{flex-basis:100%;margin:0;font-weight:800}
+.promo-countdown-unit{min-width:4.2rem;padding:.45rem .6rem;background:#000;color:#fff}
+.promo-countdown-value,.promo-countdown-unit small{display:block}
+.promo-countdown-value{font-size:1.35rem;line-height:1.1}
+.promo-countdown-unit small{font-size:.7rem;text-transform:uppercase;letter-spacing:.04em}
+.promo-date-range{margin:-.6rem 0 1rem;text-align:center;font-size:.9rem}
+.promo-inquire{display:block;width:max-content;margin:1rem auto 0;text-align:center}
+
+/* Breaking-news ticker */
+.promo-ticker{display:flex;align-items:stretch;overflow:hidden;background:#000;color:#fff;border:1px solid #000;border-top:0}
+.promo-ticker-label{flex:none;display:flex;align-items:center;background:#d71920;color:#fff;font-weight:800;text-transform:uppercase;letter-spacing:.04em;font-size:.85rem;padding:.6rem .9rem}
+.promo-ticker-view{flex:1;min-width:0;overflow:hidden}
+.promo-ticker-track{display:flex;width:max-content;animation:promo-scroll var(--promo-duration,30s) linear infinite;will-change:transform}
+.promo-ticker-view:hover .promo-ticker-track{animation-play-state:paused}
+.promo-ticker-group{display:flex;flex:none;align-items:center}
+.promo-ticker-item{display:inline-flex;align-items:center;white-space:nowrap;font-weight:700;font-size:.95rem;padding:.75rem 0}
+.promo-ticker-item::after{content:"";display:inline-block;width:10px;height:10px;margin-inline:1.4rem;background:var(--cyan);transform:rotate(45deg)}
+@keyframes promo-scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* Reduced motion: no scrolling, messages wrap and show once */
+@media (prefers-reduced-motion:reduce){
+  .promo-ticker-track{animation:none;width:auto}
+  .promo-ticker-group[aria-hidden="true"]{display:none}
+  .promo-ticker-group{flex-wrap:wrap;justify-content:center;padding-inline:.9rem}
+  .promo-ticker-item{white-space:normal;padding:.5rem 0}
+}
+@media (max-width:520px){
+  .promo{padding-block:var(--s4)}
+  .promo-ticker-label{font-size:.7rem;padding:.5rem .6rem}
+  .promo-ticker-item{font-size:.85rem}
+  .promo-popup-open{padding:.75rem}
+  .promo-popup-open .promo-frame{max-height:calc(100vh - 1.5rem);padding:.75rem}
+  .promo-popup-open .promo-frame img{max-height:35vh}
+  .promo-countdown{gap:.35rem;flex-wrap:wrap}
+  .promo-countdown-title{font-size:.95rem}
+  .promo-countdown-unit{min-width:3.5rem;padding:.4rem}
+  .promo-countdown-value{font-size:1.1rem}
+  .promo-inquire{width:100%}
+}
