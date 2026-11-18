@@ -182,7 +182,7 @@
     bar.appendChild(view);
     frame.appendChild(bar);
 
-    inquireButton = el('a', 'btn promo-inquire', 'Inquire now');
+    inquireButton = el('a', 'btn promo-inquire', 'Enquire now');
     inquireButton.href = 'contact.html?division=print&special=promo-pull-up#enquiry-form';
     frame.appendChild(inquireButton);
 
