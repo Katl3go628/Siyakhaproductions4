@@ -1,4 +1,4 @@
- // Mobile menu, footer year, Our work autoplay zoom, scroll fade-in, home hero player. No dependencies.
+// Mobile menu, footer year, scroll fade-in and home hero player. No dependencies.
 (function () {
   var toggle = document.querySelector('.menu-toggle');
   var nav = document.getElementById('site-nav');
@@ -20,20 +20,6 @@
   var year = document.getElementById('year');
   if (year) year.textContent = new Date().getFullYear();
 
-  // Our work: zoom each photo in turn. Pauses on hover; skipped for reduced motion.
-  var grid = document.querySelector('.portfolio .grid');
-  var tiles = document.querySelectorAll('.portfolio .zoom');
-  if (grid && tiles.length && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    var i = 0, timer = null;
-    var clear = function () { for (var k = 0; k < tiles.length; k++) tiles[k].classList.remove('active'); };
-    var step = function () { clear(); tiles[i].classList.add('active'); i = (i + 1) % tiles.length; };
-    var start = function () { stop(); step(); timer = setInterval(step, 2800); };
-    var stop = function () { clearInterval(timer); clear(); };
-    grid.addEventListener('mouseenter', stop);
-    grid.addEventListener('mouseleave', start);
-    start();
-  }
-
   // Gentle fade-up as sections scroll into view. Skipped for reduced motion or old browsers.
   if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     var targets = document.querySelectorAll('.intro .wrap > *, .division .wrap > *, .services .cols > div, .portfolio .grid, .why dl, .contact .wrap > *');
@@ -53,29 +39,63 @@
     onScroll();
   }
 
-  // Home hero: logo video first, then photos fade one into the next, then back to the video.
+  // Home hero: play the logo video, then load each photo as the slideshow approaches it.
   var hero = document.getElementById('hero');
   if (hero) {
     var video = hero.querySelector('video');
     var slides = hero.querySelectorAll('.slide');
     var idx = 0, timer = null;
-    var setLight = function (on) { hero.classList.toggle('is-video', on); document.body.classList.toggle('hero-light', on); };
-    var showSlide = function (n) { for (var k = 0; k < slides.length; k++) slides[k].classList.toggle('on', k === n); };
-    var schedule = function () { clearTimeout(timer); timer = setTimeout(next, 4500); };
-    var startPhotos = function () { video.classList.remove('on'); setLight(false); idx = 0; showSlide(0); schedule(); };
-    var showVideo = function () {
-      showSlide(-1); setLight(true); video.currentTime = 0; video.classList.add('on');
-      var p = video.play(); if (p && p.catch) p.catch(startPhotos);
+    var setLight = function (on) {
+      hero.classList.toggle('is-video', on);
+      document.body.classList.toggle('hero-light', on);
     };
-    var next = function () { idx++; if (idx >= slides.length) showVideo(); else { showSlide(idx); schedule(); } };
-    // load the other photos once the page is ready
-    window.addEventListener('load', function () {
-      for (var k = 0; k < slides.length; k++) if (slides[k].getAttribute('data-src')) slides[k].src = slides[k].getAttribute('data-src');
-    });
+    var loadSlide = function (n) {
+      var slide = slides[n];
+      if (!slide) return;
+      var source = slide.getAttribute('data-src');
+      if (source && slide.getAttribute('data-loaded') !== 'true') {
+        slide.src = source;
+        slide.setAttribute('data-loaded', 'true');
+        slide.decoding = 'async';
+      }
+    };
+    var showSlide = function (n) {
+      if (n >= 0) loadSlide(n);
+      for (var k = 0; k < slides.length; k++) slides[k].classList.toggle('on', k === n);
+    };
+    var preloadNextSlide = function () {
+      if (idx + 1 < slides.length) loadSlide(idx + 1);
+    };
+    var schedule = function () {
+      clearTimeout(timer);
+      preloadNextSlide();
+      timer = setTimeout(next, 4500);
+    };
+    var startPhotos = function () {
+      if (video) video.classList.remove('on');
+      setLight(false);
+      idx = 0;
+      showSlide(0);
+      schedule();
+    };
+    var showVideo = function () {
+      showSlide(-1);
+      setLight(true);
+      if (!video) { startPhotos(); return; }
+      video.currentTime = 0;
+      video.classList.add('on');
+      var playback = video.play();
+      if (playback && playback.catch) playback.catch(startPhotos);
+    };
+    var next = function () {
+      idx++;
+      if (idx >= slides.length) showVideo();
+      else { showSlide(idx); schedule(); }
+    };
     if (video) {
       video.addEventListener('ended', startPhotos);
       video.addEventListener('error', startPhotos);
       showVideo();
-    }
+    } else startPhotos();
   }
 })();
