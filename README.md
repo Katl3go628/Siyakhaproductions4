@@ -2,26 +2,54 @@
 
 ## Run locally
 1. Open the folder in Visual Studio Code.
-2. Install the "Live Server" extension, right-click `index.html`, choose "Open with Live Server".
+2. Install the "Live Server" extension.
+3. Right-click `index.html` and choose "Open with Live Server".
 
-## Structure
-- Five pages: index, about, technical-sound, printing, contact.
-- `css/style.css` - design tokens (top of file), layout, responsive rules, motion.
-- `js/main.js` (menu, year) and `js/forms.js` (validation + submission).
-- `assets/logos/siyakha-logo.jpg` - supplied logo, unaltered.
-- `assets/images/` - supplied photographs, resized for the web.
+## Pages and structure
+- `index.html` - home page.
+- `about.html` - about the company.
+- `technical-sound.html` - technical sound and live staging.
+- `printing.html` - print solutions and running specials.
+- `contact.html` - enquiry form and contact details.
+- `privacy-policy/`, `cookie-policy/`, `terms-and-conditions/` - legal information.
+- `css/style.css` - design tokens, layout, responsive rules, motion and cookie/map styling.
+- `css/promo.css` - isolated running-special styles.
+- `js/main.js` - navigation, footer year, scroll effects and home hero slideshow.
+- `js/promo.js` - promotion dates, countdown, ticker and contact-form special options.
+- `js/forms.js` - contact-form validation, Web3Forms submission and enquiry routing.
+- `js/cookie-consent.js` - consent notice, preference storage and consent-controlled scripts/embeds.
 
-## Contact details
-Address, phone, email and the WhatsApp link (`https://wa.me/27677041461`) appear in the footer of every page, on the contact page, and as a floating WhatsApp button.
+## Contact form and email routing
+The contact form uses Web3Forms at `https://api.web3forms.com/submit`.
+- General enquiries use the Info access key.
+- Technical sound, printing, combined enquiries and running specials use the Sales access key.
+- The access keys are public identifiers for the standard browser-side Web3Forms integration; they are not private server credentials. Do not place private credentials in front-end code.
+- hCaptcha is used as the form's anti-spam check.
+- Confirm the recipient email configured for each access key in the Web3Forms dashboard. The website selects the intended key, but inbox delivery depends on the dashboard configuration and provider delivery.
 
-## Contact form (sends to info@siyakhaproductions.co.za)
-The form posts to FormSubmit (`data-endpoint` in `contact.html`). One-time activation: once the site is live, submit the form once; FormSubmit emails a confirmation link to info@siyakhaproductions.co.za. Click it, and every later enquiry arrives in that inbox. The form has a hidden spam trap and client-side validation. To use Formspree or another service instead, change `data-endpoint` and the response check in `js/forms.js`.
+## Cookie preferences and third-party services
+- Essential storage remembers the visitor's cookie choice.
+- The interactive Google Map on the Contact page is held back until the visitor allows the Functional category. If not allowed, a local notice is displayed.
+- The consent loader supports scripts staged as `type="text/plain"` with `data-cookie-category`; use `data-cookie-src` for an external script URL. Do not add analytics or advertising tags directly to page markup without consent gating.
+- Google Fonts is requested for the Archivo typeface. This is a design asset request, not an analytics tag.
+- Web3Forms and hCaptcha support contact-form delivery and security.
+- No Google Analytics or advertising tracking tag is currently included in the website source. Update the policies and consent integration before adding either.
 
-## Home hero
-`assets/video/logo-assemble.mp4` (silent) plays automatically, then the six `assets/images/hero-*.jpg` photos fade one into the next, then it returns to the video. To change the order or photos, edit the `<img class="slide">` tags in `index.html`.
+## Running specials
+The promotion dates and offers are configured in `js/promo.js`. Its start and expiry dates use South African local calendar dates. The script adds the special options to the contact form while the promotion is live and routes those enquiries to Sales.
 
-## Photos
-Several supplied photos show other companies' branding (for example the vehicle wrap). Confirm you have the right to use each one, and only describe photos as Siyakha's own work if they are.
+## Home hero performance
+The logo video remains the first hero element. The slideshow loads the next photograph shortly before it is displayed instead of downloading all six hero photographs immediately after page load. Keep the existing image dimensions and slide order when editing the hero.
 
-## Before launch
-Add canonical URLs, an og:image and a sitemap.xml (see robots.txt) once the domain is confirmed.
+## Assets and usage
+- `assets/logos/siyakha-logo.jpg` - supplied logo.
+- `assets/images/` and `assets/icons/` - images and icons used by the pages.
+- `assets/video/logo-assemble.mp4` - silent home hero logo animation.
+- Confirm that Siyakha has permission to use all supplied photographs and only describe images as Siyakha's own work where that is accurate.
+
+## Before launch or future integrations
+- Confirm both Web3Forms access-key recipients in the Web3Forms dashboard and test Info and Sales routing.
+- Test hCaptcha and successful/failed form submissions on the deployed domain.
+- Test first-visit cookie choices, saved preferences, the Functional map gate and withdrawal of consent.
+- If analytics or advertising tools are added, stage them through the consent loader and update both legal policies.
+- Keep HTTPS enabled, maintain backups and review hosting security settings.
