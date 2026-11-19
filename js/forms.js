@@ -50,19 +50,23 @@
     if (firstBad) { firstBad.focus(); return; }
     if (form._honey.value) return; // spam trap: bots fill this in
 
-    // Route only from the fixed select options; never accept a visitor-supplied recipient.
-    var accessKeys = {
-      general: '7f86f27a-0bd1-4c2a-bef4-6e3e63c0f338',
-      sound: '44179350-5a97-4c24-a890-123a5779fd4f',
-      print: '44179350-5a97-4c24-a890-123a5779fd4f',
-      both: '44179350-5a97-4c24-a890-123a5779fd4f',
-      // Running promotional offers are all sales enquiries and go to the Sales inbox.
-      'promo-pull-up': '44179350-5a97-4c24-a890-123a5779fd4f',
-      'promo-business-cards': '44179350-5a97-4c24-a890-123a5779fd4f',
-      'promo-flyers': '44179350-5a97-4c24-a890-123a5779fd4f'
-    };
+    // Only General Enquiry goes to Info. Every recognised service or special goes to Sales.
+    // Recipients are selected from fixed options; visitors cannot supply an email address.
     var selectedDivision = form.division.value;
-    var accessKey = accessKeys[selectedDivision];
+    var salesOptions = [
+      'sound',
+      'print',
+      'both',
+      'promo-pull-up',
+      'promo-business-cards',
+      'promo-flyers'
+    ];
+    var infoKey = '7f86f27a-0bd1-4c2a-bef4-6e3e63c0f338';
+    var salesKey = '44179350-5a97-4c24-a890-123a5779fd4f';
+    var accessKey = selectedDivision === 'general'
+      ? infoKey
+      : (salesOptions.indexOf(selectedDivision) !== -1 ? salesKey : '');
+
     if (!accessKey) {
       say('Please choose a valid enquiry type and try again.', false);
       form.division.focus();
@@ -70,9 +74,11 @@
     }
 
     var fd = new FormData(form);
+    var divisionLabel = form.division.options[form.division.selectedIndex].text;
     fd.set('access_key', accessKey);
-    fd.set('division', form.division.options[form.division.selectedIndex].text);
-    fd.set('subject', 'New website enquiry - Siyakha Productions');
+    fd.set('division', divisionLabel);
+    fd.set('subject', 'New enquiry: ' + divisionLabel + ' | Siyakha Productions');
+    // Keep Siyakha as the notification sender; Web3Forms uses the submitted email field as Reply-To.
     fd.set('from_name', 'Siyakha Productions');
     var payload = Object.fromEntries(fd.entries());
 
@@ -92,7 +98,7 @@
           throw new Error('Web3Forms submission failed');
         }
         form.reset();
-        say('Thank you. Your enquiry has been sent.', true);
+        say('Thank you for contacting Siyakha Productions! Your enquiry has been submitted successfully. Our team will review your message and get back to you as soon as possible.', true);
       })
       .catch(function () {
         say('Your message could not be sent. Please try again, or email or WhatsApp us using the details on this page.', false);
