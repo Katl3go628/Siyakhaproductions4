@@ -233,6 +233,6 @@
 
   update();
   setInterval(update, 60000);
-  setInterval(updateCountdown, 1000);
+  if (section) setInterval(updateCountdown, 1000);
   if (isLive()) setTimeout(update, Math.max(0, expiryTime() - Date.now()));
 })();
