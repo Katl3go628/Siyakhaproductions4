@@ -12,7 +12,7 @@
     return option.value === special;
   });
   if (matchingSpecial) form.division.value = special;
-  else if (pre === 'sound' || pre === 'print' || pre === 'both') form.division.value = pre;
+  else if (pre === 'sound' || pre === 'print' || pre === 'both' || pre === 'general') form.division.value = pre;
 
   var rules = {
     name: function (v) { return v.trim() ? '' : 'Enter your full name.'; },
@@ -53,7 +53,9 @@
     var fd = new FormData(form);
     fd.set('division', form.division.options[form.division.selectedIndex].text);
     btn.disabled = true; btn.textContent = 'Sending...';
-    fetch(form.getAttribute('data-endpoint'), { method: 'POST', body: fd, headers: { Accept: 'application/json' } })
+    var selectedDivision = form.division.value;
+    var endpoint = selectedDivision === 'general' ? form.getAttribute('data-endpoint') : form.getAttribute('data-endpoint-sales');
+    fetch(endpoint, { method: 'POST', body: fd, headers: { Accept: 'application/json' } })
       .then(function (r) {
         return r.json().catch(function () { return {}; }).then(function (d) { return { ok: r.ok, d: d }; });
       })
