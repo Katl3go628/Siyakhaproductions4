@@ -345,3 +345,10 @@ section{padding-block:var(--s6)}
   .portfolio .marquee-row{overflow-x:auto;scrollbar-width:none}
   .portfolio .marquee-row::-webkit-scrollbar{display:none}
 }
+
+
+/* ---------- Email contact identifiers ---------- */
+.email-purpose{display:inline-flex;align-items:center;gap:.5rem}
+.email-purpose-icon{width:1.1rem;height:1.1rem;flex:none;color:var(--magenta)}
+.email-address{color:var(--magenta);font-weight:700;text-decoration-thickness:1px;text-underline-offset:3px}
+.email-address:hover{color:#000}
