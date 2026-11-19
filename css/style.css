@@ -349,6 +349,6 @@ section{padding-block:var(--s6)}
 
 /* ---------- Email contact identifiers ---------- */
 .email-purpose{display:inline-flex;align-items:center;gap:.25em;line-height:1.2}
-.email-purpose-icon{display:inline-block;width:1em!important;height:1em!important;min-width:1em;max-width:1em;min-height:1em;max-height:1em;flex:0 0 1em;color:var(--magenta);vertical-align:-.12em}
-.email-address{color:var(--magenta);font-weight:700;text-decoration-thickness:1px;text-underline-offset:3px}
-.email-address:hover{color:#000}
+.email-purpose-icon{display:inline-block;width:1em!important;height:1em!important;min-width:1em;max-width:1em;min-height:1em;max-height:1em;flex:0 0 1em;color:var(--cyan);vertical-align:-.12em}
+.email-address{color:var(--cyan);font-weight:700;text-decoration-thickness:1px;text-underline-offset:3px}
+.email-address:hover{color:var(--cyan)}
