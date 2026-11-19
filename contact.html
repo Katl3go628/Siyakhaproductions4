@@ -52,7 +52,7 @@
         <p>Or use the enquiry form and choose the division your request is for. Include dates, venue or quantities if you have them.</p>
         <p><a href="technical-sound.html">Technical Sound &amp; Live Staging</a><br><a href="printing.html">Siyakha Print Solutions</a></p>
       </div>
-      <form id="enquiry-form" class="form" method="post" novalidate data-endpoint="https://formsubmit.co/ajax/info@siyakhaproductions.co.za" data-endpoint-sales="https://formsubmit.co/ajax/sales@siyakhaproductions.co.za">
+      <form id="enquiry-form" class="form" action="https://api.web3forms.com/submit" method="post" novalidate>
         <h2 id="form-title">Send an enquiry</h2>
         <div class="field"><label for="name">Full name</label><input id="name" name="name" type="text" autocomplete="name" required aria-describedby="name-err"><span class="err" id="name-err"></span></div>
         <div class="field"><label for="email">Email address</label><input id="email" name="email" type="email" autocomplete="email" required aria-describedby="email-err"><span class="err" id="email-err"></span></div>
@@ -60,8 +60,8 @@
         <div class="field"><label for="division">Enquiry about</label>
           <select id="division" name="division" required aria-describedby="division-err"><option value="">Choose a division or special</option><option value="sound">Technical Sound &amp; Live Staging</option><option value="print">Siyakha Print Solutions</option><option value="both">Both: Technical Sound &amp; Print Solutions</option><option value="general">General inquiry</option></select><span class="err" id="division-err"></span></div>
         <div class="field"><label for="message">Message</label><textarea id="message" name="message" rows="6" required aria-describedby="message-err"></textarea><span class="err" id="message-err"></span></div>
-        <input type="hidden" name="_subject" value="New website enquiry - Siyakha Productions"><input type="hidden" name="_template" value="table">
-        <div class="hp" aria-hidden="true"><label for="_honey">Leave this empty</label><input id="_honey" name="_honey" type="text" tabindex="-1" autocomplete="off"></div>
+        <input type="hidden" name="subject" value="New website enquiry - Siyakha Productions"><input type="hidden" name="from_name" value="Siyakha Productions">
+        <div class="hp" aria-hidden="true"><label for="_honey">Leave this empty</label><input id="_honey" name="_honey" type="text" tabindex="-1" autocomplete="off"><input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" style="display:none"></div>
         <button class="btn" type="submit">Send enquiry</button>
         <p class="status" id="form-status" role="status" aria-live="polite"></p>
       </form>
