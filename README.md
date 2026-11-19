@@ -12,12 +12,21 @@
 - `printing.html` - print solutions and running specials.
 - `contact.html` - enquiry form and contact details.
 - `privacy-policy/`, `cookie-policy/`, `terms-and-conditions/` - legal information.
+- `sitemap.xml` - XML sitemap listing the public website pages for search engines.
+- `robots.txt` - crawler instructions and sitemap location.
 - `css/style.css` - design tokens, layout, responsive rules, motion and cookie/map styling.
 - `css/promo.css` - isolated running-special styles.
 - `js/main.js` - navigation, footer year, scroll effects and home hero slideshow.
 - `js/promo.js` - promotion dates, countdown, ticker and contact-form special options.
 - `js/forms.js` - contact-form validation, Web3Forms submission and enquiry routing.
 - `js/cookie-consent.js` - consent notice, preference storage and consent-controlled scripts/embeds.
+
+## SEO and indexing
+- Sitemap: `https://siyakhaproductions.co.za/sitemap.xml`.
+- `robots.txt` allows crawling and points search engines to the sitemap.
+- Submit the sitemap URL in Google Search Console after the updated files are deployed.
+- A sitemap helps search engines discover URLs; it does not guarantee indexing or rankings.
+- Keep the sitemap updated when public pages are added, removed or their URLs change.
 
 ## Contact form and email routing
 The contact form uses Web3Forms at `https://api.web3forms.com/submit`.
