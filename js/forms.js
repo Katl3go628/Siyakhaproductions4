@@ -50,6 +50,13 @@
     if (firstBad) { firstBad.focus(); return; }
     if (form._honey.value) return; // spam trap: bots fill this in
 
+    // Require a completed Web3Forms hCaptcha challenge before sending.
+    var captchaResponse = form.querySelector('textarea[name="h-captcha-response"]');
+    if (!captchaResponse || !captchaResponse.value.trim()) {
+      say('Please complete the security check before sending your enquiry.', false);
+      return;
+    }
+
     // Only General Enquiry goes to Info. Every recognised service or special goes to Sales.
     // Recipients are selected from fixed options; visitors cannot supply an email address.
     var selectedDivision = form.division.value;
