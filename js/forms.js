@@ -55,7 +55,11 @@
       general: '7f86f27a-0bd1-4c2a-bef4-6e3e63c0f338',
       sound: '44179350-5a97-4c24-a890-123a5779fd4f',
       print: '44179350-5a97-4c24-a890-123a5779fd4f',
-      both: '44179350-5a97-4c24-a890-123a5779fd4f'
+      both: '44179350-5a97-4c24-a890-123a5779fd4f',
+      // Running promotional offers are all sales enquiries and go to the Sales inbox.
+      'promo-pull-up': '44179350-5a97-4c24-a890-123a5779fd4f',
+      'promo-business-cards': '44179350-5a97-4c24-a890-123a5779fd4f',
+      'promo-flyers': '44179350-5a97-4c24-a890-123a5779fd4f'
     };
     var selectedDivision = form.division.value;
     var accessKey = accessKeys[selectedDivision];
