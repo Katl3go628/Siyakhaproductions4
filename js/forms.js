@@ -1,5 +1,5 @@
-// Enquiry form: client-side validation + submission to FormSubmit, which emails the enquiry.
-// The endpoint lives in the form's data-endpoint attribute (no secrets in JS).
+// Enquiry form: client-side validation + Web3Forms email delivery.
+// Web3Forms access keys are public form identifiers, not secret API credentials.
 (function () {
   var form = document.getElementById('enquiry-form');
   if (!form) return;
@@ -50,17 +50,43 @@
     if (firstBad) { firstBad.focus(); return; }
     if (form._honey.value) return; // spam trap: bots fill this in
 
-    var fd = new FormData(form);
-    fd.set('division', form.division.options[form.division.selectedIndex].text);
-    btn.disabled = true; btn.textContent = 'Sending...';
+    // Route only from the fixed select options; never accept a visitor-supplied recipient.
+    var accessKeys = {
+      general: '7f86f27a-0bd1-4c2a-bef4-6e3e63c0f338',
+      sound: '44179350-5a97-4c24-a890-123a5779fd4f',
+      print: '44179350-5a97-4c24-a890-123a5779fd4f',
+      both: '44179350-5a97-4c24-a890-123a5779fd4f'
+    };
     var selectedDivision = form.division.value;
-    var endpoint = selectedDivision === 'general' ? form.getAttribute('data-endpoint') : form.getAttribute('data-endpoint-sales');
-    fetch(endpoint, { method: 'POST', body: fd, headers: { Accept: 'application/json' } })
+    var accessKey = accessKeys[selectedDivision];
+    if (!accessKey) {
+      say('Please choose a valid enquiry type and try again.', false);
+      form.division.focus();
+      return;
+    }
+
+    var fd = new FormData(form);
+    fd.set('access_key', accessKey);
+    fd.set('division', form.division.options[form.division.selectedIndex].text);
+    fd.set('subject', 'New website enquiry - Siyakha Productions');
+    fd.set('from_name', 'Siyakha Productions');
+    var payload = Object.fromEntries(fd.entries());
+
+    btn.disabled = true; btn.textContent = 'Sending...';
+    fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify(payload)
+    })
       .then(function (r) {
-        return r.json().catch(function () { return {}; }).then(function (d) { return { ok: r.ok, d: d }; });
+        return r.json().catch(function () { return {}; }).then(function (d) {
+          return { ok: r.ok, d: d };
+        });
       })
       .then(function (res) {
-        if (!res.ok || res.d.success === false || res.d.success === 'false') throw new Error('failed');
+        if (!res.ok || res.d.success !== true) {
+          throw new Error('Web3Forms submission failed');
+        }
         form.reset();
         say('Thank you. Your enquiry has been sent.', true);
       })
